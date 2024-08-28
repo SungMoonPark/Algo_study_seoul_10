@@ -5,13 +5,11 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Main_2805 {
+public class 나무자르기 {
 	static int N, M;
 	static int[] map;
-	static int cnt,tmp;
-	static int idx;
-	static long[] dp;
-	static long max;
+	static long cnt;
+	static int max;
 	static long left, right, mid;
 	
 	public static void main(String[] args) throws Exception {
@@ -22,28 +20,22 @@ public class Main_2805 {
 		
 		st = new StringTokenizer(br.readLine());
 		map = new int[N];
-		max = 0;
+		right = 0;
 		for(int i = 0; i < N; i++) {
 			map[i] = Integer.parseInt(st.nextToken());
-			max = Math.max(max, map[i]);
+			right = Math.max(right, map[i]);
 		}
 		
-		Arrays.sort(map);
 		left = 0;
-		right = max;
 		
-		while(true) {
+		while(left<=right) {
 			mid = (left+right)/2;
 			cnt = 0;
-			for(int i = N-1; i >=0; i--) {
-				if(map[i] < mid)
-					break;
-				cnt+= (map[i] - mid);
+			for(int i = 0; i < N; i++) {
+				if(map[i] > mid)
+					cnt+= (map[i] - mid);
 			}
 			
-			if(cnt == M) {
-				break;
-			}
 			if(cnt < M)
 				right = mid-1;
 			else {
@@ -51,7 +43,7 @@ public class Main_2805 {
 			}
 		}
 		
-		System.out.println(mid);
+		System.out.println(right);
 	}
 	
 }
